@@ -71,3 +71,67 @@ export default defineConfig([
   },
 ])
 ```
+FILE STRUCTURE src
+│
+├── app
+│   ├── store.ts
+│   └── hooks.ts
+│
+├── components
+│   │
+│   ├── layout
+│   │   ├── Sidebar.tsx
+│   │   ├── Navbar.tsx
+│   │   └── DashboardLayout.tsx
+│   │
+│   ├── common
+│   │   ├── Button.tsx
+│   │   ├── Input.tsx
+│   │   ├── Card.tsx
+│   │   └── Modal.tsx
+│   │
+│   └── invoice
+│       ├── InvoicePreview.tsx
+│       ├── InvoiceItemRow.tsx
+│       └── InvoiceSummary.tsx
+│
+├── features
+│   ├── auth
+│   │   ├── authSlice.ts
+│   │   └── ProtectedRoute.tsx
+│   │
+│   ├── customers
+│   │   └── customerSlice.ts
+│   │
+│   ├── invoices
+│   │   └── invoiceSlice.ts
+│   │
+│   └── ui
+│       └── uiSlice.ts
+│
+├── pages
+│   ├── Login.tsx
+│   ├── Register.tsx
+│   ├── Dashboard.tsx
+│   ├── Customers.tsx
+│   ├── Invoices.tsx
+│   ├── CreateInvoice.tsx
+│   └── Settings.tsx
+│
+├── routes
+│   └── AppRoutes.tsx
+│
+├── services
+│   ├── api.ts
+│   ├── authService.ts
+│   ├── customerService.ts
+│   └── invoiceService.ts
+│
+├── types
+│   ├── customer.ts
+│   ├── invoice.ts
+│   └── user.ts
+│
+├── App.tsx
+├── main.tsx
+└── index.css
