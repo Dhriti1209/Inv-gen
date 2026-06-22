@@ -1,137 +1,298 @@
-# React + TypeScript + Vite
+# Enterprise Invoice Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern SaaS-style Invoice Management System built using React, TypeScript, Redux Toolkit, and Tailwind CSS. The application allows businesses to manage customers, generate invoices, preview invoices, and export professional PDF invoices.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+### Authentication UI
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Login Page
+* Register Page
+* Protected Dashboard Layout
+* Sidebar Navigation
+* React Router Integration
 
-## Expanding the ESLint configuration
+### Customer Management
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* Add Customers
+* View Customer List
+* Delete Customers
+* Redux State Management
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Invoice Management
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+* Create Invoices
+* Dynamic Line Items
+* Customer Selection from Dropdown
+* Automatic Tax Calculation
+* Automatic Total Calculation
+* Save Invoices
+* View Invoice Details
+* Delete Invoices
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Invoice Preview
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+* Professional Invoice Layout
+* Customer Information
+* Invoice Metadata
+* Itemized Billing Table
+* Tax & Total Summary
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### PDF Export
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-FILE STRUCTURE src
+* Generate Invoice PDFs
+* Download Invoice as PDF
+* High Quality Rendering using html2canvas and jsPDF
+
+### State Management
+
+* Redux Toolkit
+* Separate Slices for:
+
+  * Authentication
+  * Customers
+  * Invoices
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* React 19
+* Vite
+* TypeScript
+* Redux Toolkit
+* React Router DOM
+* Tailwind CSS
+* jsPDF
+* html2canvas
+
+### Planned Backend
+
+* Node.js
+* Express.js
+* TypeScript
+* MongoDB
+* Mongoose
+* JWT Authentication
+* bcryptjs
+
+### Planned Cloud & DevOps
+
+* AWS S3
+* Docker
+* Nginx
+* GitHub Actions
+* MongoDB Atlas
+
+---
+
+## Project Structure
+
+```text
+src
 │
 ├── app
 │   ├── store.ts
 │   └── hooks.ts
 │
 ├── components
-│   │
+│
 │   ├── layout
 │   │   ├── Sidebar.tsx
 │   │   ├── Navbar.tsx
 │   │   └── DashboardLayout.tsx
-│   │
-│   ├── common
-│   │   ├── Button.tsx
-│   │   ├── Input.tsx
-│   │   ├── Card.tsx
-│   │   └── Modal.tsx
-│   │
-│   └── invoice
-│       ├── InvoicePreview.tsx
-│       ├── InvoiceItemRow.tsx
-│       └── InvoiceSummary.tsx
+│
+│   ├── invoice
+│   │   └── InvoicePreview.tsx
+│
+│   └── common
+│       ├── Button.tsx
+│       └── Input.tsx
 │
 ├── features
+│
 │   ├── auth
-│   │   ├── authSlice.ts
-│   │   └── ProtectedRoute.tsx
-│   │
+│   │   └── authSlice.ts
+│
 │   ├── customers
 │   │   └── customerSlice.ts
-│   │
-│   ├── invoices
-│   │   └── invoiceSlice.ts
-│   │
-│   └── ui
-│       └── uiSlice.ts
+│
+│   └── invoices
+│       └── invoiceSlice.ts
 │
 ├── pages
+│
 │   ├── Login.tsx
 │   ├── Register.tsx
 │   ├── Dashboard.tsx
 │   ├── Customers.tsx
 │   ├── Invoices.tsx
 │   ├── CreateInvoice.tsx
-│   └── Settings.tsx
+│   └── InvoiceDetails.tsx
 │
 ├── routes
 │   └── AppRoutes.tsx
 │
-├── services
-│   ├── api.ts
-│   ├── authService.ts
-│   ├── customerService.ts
-│   └── invoiceService.ts
-│
-├── types
-│   ├── customer.ts
-│   ├── invoice.ts
-│   └── user.ts
+├── utils
+│   └── pdfGenerator.ts
 │
 ├── App.tsx
 ├── main.tsx
 └── index.css
+```
+
+---
+
+## Invoice Workflow
+
+```text
+Add Customer
+      ↓
+Create Invoice
+      ↓
+Select Customer
+      ↓
+Add Items
+      ↓
+Calculate Total
+      ↓
+Save Invoice
+      ↓
+View Invoice
+      ↓
+Download PDF
+```
+
+---
+
+## Current Invoice Model
+
+```typescript
+export interface InvoiceItem {
+  id: string;
+  description: string;
+  quantity: number;
+  price: number;
+}
+
+export interface Invoice {
+  id: string;
+  invoiceNumber: string;
+  customerName: string;
+  issueDate: string;
+  dueDate: string;
+  items: InvoiceItem[];
+  subtotal: number;
+  tax: number;
+  total: number;
+  status: "Paid" | "Pending";
+}
+```
+
+---
+
+## Current Customer Model
+
+```typescript
+export interface Customer {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+}
+```
+
+---
+
+## Screens Implemented
+
+* Login Page
+* Register Page
+* Dashboard
+* Customer Management
+* Invoice List
+* Create Invoice
+* Invoice Preview
+* Invoice Details
+
+---
+
+## Upcoming Features
+
+### Frontend
+
+* Redux Persist
+* Dashboard Analytics
+* Invoice Status Updates
+* Search & Filters
+* Dark Mode
+* Responsive Mobile Layout
+
+### Backend
+
+* Express + TypeScript API
+* MongoDB Integration
+* JWT Authentication
+* Customer CRUD APIs
+* Invoice CRUD APIs
+* Protected Routes
+
+### Cloud
+
+* AWS S3 Invoice Storage
+* Email Invoice Delivery
+* Docker Deployment
+* CI/CD Pipeline
+
+### SaaS Features
+
+* Multi-Tenant Architecture
+* Role-Based Access Control
+* Subscription Management
+* Organization Management
+
+---
+
+## Installation
+
+```bash
+git clone <repository-url>
+
+cd enterprise-invoice-generator
+
+npm install
+
+npm run dev
+```
+
+---
+
+## Future Goal
+
+Build a production-ready Enterprise Invoice SaaS Platform supporting:
+
+* Authentication & Authorization
+* Customer Relationship Management
+* Invoice Generation & Tracking
+* PDF Storage & Sharing
+* Cloud Deployment
+* Multi-Tenant SaaS Architecture
+* Enterprise Analytics Dashboard
+* Role-Based Access Control
+* Subscription-Based Monetization
+
+---
+
+## Author
+
+Dhriti Joshi
+
+B.Tech CSE (AI & ML)
+Manipal University Jaipur
+
+Full Stack Developer | React | TypeScript | MongoDB | Node.js
