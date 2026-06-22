@@ -261,7 +261,7 @@ export interface Customer {
 ## Installation
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Dhriti1209/Inv-gen.git
 
 cd enterprise-invoice-generator
 
