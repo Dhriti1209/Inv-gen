@@ -1,6 +1,29 @@
 import { useState } from "react";
+import {
+  useDispatch,
+  useSelector,
+} from "react-redux";
+
+import type { RootState } from "../app/store";
+
+import InvoicePreview from "../components/invoice/InvoicePreview";
+
+import type { Invoice } from "../features/invoices/invoiceSlice";
+import { addInvoice } from "../features/invoices/invoiceSlice";
+
+import { downloadInvoicePDF } from "../utils/pdfGenerator";
 
 const CreateInvoice = () => {
+  const dispatch = useDispatch();
+
+  const customers = useSelector(
+    (state: RootState) =>
+      state.customer.customers
+  );
+
+  const [customerName, setCustomerName] =
+    useState("");
+
   const [items, setItems] = useState([
     {
       item: "",
@@ -44,9 +67,52 @@ const CreateInvoice = () => {
     0
   );
 
-  const gst = subtotal * 0.18;
+  const tax = subtotal * 0.18;
 
-  const total = subtotal + gst;
+  const total = subtotal + tax;
+
+  const invoice: Invoice = {
+    id: Date.now().toString(),
+
+    invoiceNumber:
+      "INV-" + Date.now(),
+
+    customerName,
+
+    issueDate:
+      new Date()
+        .toISOString()
+        .split("T")[0],
+
+    dueDate:
+      new Date()
+        .toISOString()
+        .split("T")[0],
+
+    items: items.map((item, index) => ({
+      id: index.toString(),
+      description: item.item,
+      quantity: item.quantity,
+      price: item.price,
+    })),
+
+    subtotal,
+    tax,
+    total,
+
+    status: "Pending",
+  };
+
+  const saveInvoice = () => {
+    if (!customerName) {
+      alert("Please select a customer");
+      return;
+    }
+
+    dispatch(addInvoice(invoice));
+
+    alert("Invoice Saved Successfully!");
+  };
 
   return (
     <div className="p-8">
@@ -54,12 +120,33 @@ const CreateInvoice = () => {
         Create Invoice
       </h1>
 
-      <div className="bg-white p-6 rounded-xl shadow">
-        <input
-          placeholder="Customer Name"
-          className="border p-3 rounded w-full mb-6"
-        />
+      <div className="bg-white p-6 rounded-xl shadow mb-8">
 
+        {/* Customer Dropdown */}
+        <select
+          value={customerName}
+          onChange={(e) =>
+            setCustomerName(
+              e.target.value
+            )
+          }
+          className="border p-3 rounded w-full mb-6"
+        >
+          <option value="">
+            Select Customer
+          </option>
+
+          {customers.map((customer) => (
+            <option
+              key={customer.id}
+              value={customer.name}
+            >
+              {customer.name}
+            </option>
+          ))}
+        </select>
+
+        {/* Items Table */}
         <table className="w-full mb-6">
           <thead>
             <tr>
@@ -82,7 +169,7 @@ const CreateInvoice = () => {
                         e.target.value
                       )
                     }
-                    className="border p-2"
+                    className="border p-2 w-full"
                   />
                 </td>
 
@@ -120,26 +207,68 @@ const CreateInvoice = () => {
           </tbody>
         </table>
 
-        <button
-          onClick={addItem}
-          className="bg-green-500 text-white px-4 py-2 rounded"
-        >
-          Add Item
-        </button>
+        <div className="flex gap-4 mb-6">
+          <button
+            onClick={addItem}
+            className="
+              bg-green-500
+              text-white
+              px-4
+              py-2
+              rounded
+            "
+          >
+            Add Item
+          </button>
 
-        <div className="mt-8 text-right">
+          <button
+            onClick={saveInvoice}
+            className="
+              bg-purple-600
+              text-white
+              px-4
+              py-2
+              rounded
+            "
+          >
+            Save Invoice
+          </button>
+        </div>
+
+        <div className="text-right">
           <p>
-            Subtotal: ₹{subtotal}
+            Subtotal: ₹
+            {subtotal.toFixed(2)}
           </p>
 
           <p>
-            GST (18%): ₹{gst}
+            GST (18%): ₹
+            {tax.toFixed(2)}
           </p>
 
           <h2 className="text-2xl font-bold">
-            Total: ₹{total}
+            Total: ₹
+            {total.toFixed(2)}
           </h2>
         </div>
+      </div>
+
+      <InvoicePreview invoice={invoice} />
+
+      <div className="flex justify-end mt-6">
+        <button
+          onClick={downloadInvoicePDF}
+          className="
+            bg-blue-500
+            hover:bg-blue-600
+            text-white
+            px-6
+            py-3
+            rounded-lg
+          "
+        >
+          Download PDF
+        </button>
       </div>
     </div>
   );

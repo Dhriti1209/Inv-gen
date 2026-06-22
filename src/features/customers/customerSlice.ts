@@ -1,7 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+
+export interface Customer {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+}
 
 interface CustomerState {
-  customers: any[];
+  customers: Customer[];
 }
 
 const initialState: CustomerState = {
@@ -12,13 +21,28 @@ const customerSlice = createSlice({
   name: "customer",
   initialState,
   reducers: {
-    setCustomers(state, action) {
-      state.customers = action.payload;
+    addCustomer: (
+      state,
+      action: PayloadAction<Customer>
+    ) => {
+      state.customers.push(action.payload);
+    },
+
+    deleteCustomer: (
+      state,
+      action: PayloadAction<string>
+    ) => {
+      state.customers = state.customers.filter(
+        (customer) =>
+          customer.id !== action.payload
+      );
     },
   },
 });
 
-export const { setCustomers } =
-  customerSlice.actions;
+export const {
+  addCustomer,
+  deleteCustomer,
+} = customerSlice.actions;
 
 export default customerSlice.reducer;

@@ -1,35 +1,50 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import type { RootState } from "../app/store";
+
+import {
+  addCustomer,
+  deleteCustomer,
+} from "../features/customers/customerSlice";
 
 const Customers = () => {
-  const [customers, setCustomers] = useState([
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john@test.com",
-      phone: "9999999999",
-    },
-  ]);
+  const dispatch = useDispatch();
+
+  const customers = useSelector(
+    (state: RootState) =>
+      state.customer.customers
+  );
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [address, setAddress] =
+    useState("");
 
-  const addCustomer = () => {
-    if (!name || !email || !phone) return;
+  const handleAddCustomer = () => {
+    if (
+      !name ||
+      !email ||
+      !phone ||
+      !address
+    )
+      return;
 
-    setCustomers([
-      ...customers,
-      {
-        id: Date.now(),
+    dispatch(
+      addCustomer({
+        id: Date.now().toString(),
         name,
         email,
         phone,
-      },
-    ]);
+        address,
+      })
+    );
 
     setName("");
     setEmail("");
     setPhone("");
+    setAddress("");
   };
 
   return (
@@ -43,7 +58,7 @@ const Customers = () => {
           Add Customer
         </h2>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           <input
             placeholder="Name"
             value={name}
@@ -70,11 +85,29 @@ const Customers = () => {
             }
             className="border p-3 rounded"
           />
+
+          <input
+            placeholder="Address"
+            value={address}
+            onChange={(e) =>
+              setAddress(
+                e.target.value
+              )
+            }
+            className="border p-3 rounded"
+          />
         </div>
 
         <button
-          onClick={addCustomer}
-          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+          onClick={handleAddCustomer}
+          className="
+            mt-4
+            bg-blue-500
+            text-white
+            px-4
+            py-2
+            rounded
+          "
         >
           Add Customer
         </button>
@@ -87,6 +120,8 @@ const Customers = () => {
               <th>Name</th>
               <th>Email</th>
               <th>Phone</th>
+              <th>Address</th>
+              <th>Actions</th>
             </tr>
           </thead>
 
@@ -94,8 +129,33 @@ const Customers = () => {
             {customers.map((customer) => (
               <tr key={customer.id}>
                 <td>{customer.name}</td>
+
                 <td>{customer.email}</td>
+
                 <td>{customer.phone}</td>
+
+                <td>{customer.address}</td>
+
+                <td>
+                  <button
+                    onClick={() =>
+                      dispatch(
+                        deleteCustomer(
+                          customer.id
+                        )
+                      )
+                    }
+                    className="
+                      bg-red-500
+                      text-white
+                      px-3
+                      py-1
+                      rounded
+                    "
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
