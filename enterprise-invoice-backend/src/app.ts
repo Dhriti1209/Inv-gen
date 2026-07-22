@@ -2,6 +2,11 @@ import authRoutes from "./routes/auth.routes";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import companyRoutes from "./routes/company.routes";
+import customerRoutes from "./routes/customer.routes";
+import productRoutes from "./routes/product.routes";
+import invoiceRoutes from "./routes/invoice.routes";
+
 
 const app = express();
 
@@ -13,6 +18,10 @@ app.use(cookieParser());
 
 // Routes
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/company", companyRoutes);
+app.use("/api/v1/customers", customerRoutes);
+app.use("/api/v1/products", productRoutes);
+app.use("/api/v1/invoices", invoiceRoutes);
 
 // Health Check Route
 app.get("/api/v1/health", (req, res) => {
