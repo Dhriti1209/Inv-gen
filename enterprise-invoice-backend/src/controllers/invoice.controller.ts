@@ -132,7 +132,7 @@ export const createInvoice = async (
     });
   }
 };
-// Get All Invoices
+// Get All Invoices (with Search & Filter)
 export const getInvoices = async (
   req: AuthRequest,
   res: Response
@@ -141,6 +141,8 @@ export const getInvoices = async (
     const company = await Company.findOne({
       owner: req.user?._id,
     });
+    console.log("User ID:", req.user?._id);
+console.log("Company:", company);
 
     if (!company) {
       return res.status(404).json({
@@ -149,11 +151,38 @@ export const getInvoices = async (
       });
     }
 
-    const invoices = await Invoice.find({
+    const { search, status } = req.query;
+
+    const filter: any = {
       company: company._id,
-    })
+    };
+
+    // Filter by status
+    if (status && status !== "All") {
+      filter.status = status;
+    }
+
+    let invoices = await Invoice.find(filter)
       .populate("customer", "customerName email phone")
       .sort({ createdAt: -1 });
+      console.log("Invoices:", invoices);
+
+    // Search by invoice number or customer name
+    if (search) {
+      const keyword = search.toString().toLowerCase();
+
+      invoices = invoices.filter((invoice: any) => {
+        const invoiceMatch = invoice.invoiceNumber
+          ?.toLowerCase()
+          .includes(keyword);
+
+        const customerMatch = invoice.customer?.customerName
+          ?.toLowerCase()
+          .includes(keyword);
+
+        return invoiceMatch || customerMatch;
+      });
+    }
 
     return res.status(200).json({
       success: true,
@@ -169,7 +198,6 @@ export const getInvoices = async (
     });
   }
 };
-
 // Get Invoice By ID
 export const getInvoiceById = async (
   req: AuthRequest,
@@ -359,6 +387,65 @@ export const deleteInvoice = async (
 
   } catch (error) {
     console.error("Delete Invoice Error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+// Update Invoice Status
+export const updateInvoiceStatus = async (
+  req: AuthRequest,
+  res: Response
+) => {
+  try {
+    const { status } = req.body;
+
+    const company = await Company.findOne({
+      owner: req.user?._id,
+    });
+
+    if (!company) {
+      return res.status(404).json({
+        success: false,
+        message: "Company not found.",
+      });
+    }
+
+    const invoice = await Invoice.findOne({
+      _id: req.params.id,
+      company: company._id,
+    });
+
+    if (!invoice) {
+      return res.status(404).json({
+        success: false,
+        message: "Invoice not found.",
+      });
+    }
+
+    const validStatus = ["Draft", "Sent", "Paid", "Overdue"];
+
+    if (!validStatus.includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid status.",
+      });
+    }
+
+    invoice.status = status;
+
+    await invoice.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Invoice status updated successfully.",
+      invoice,
+    });
+
+  } catch (error) {
+    console.error("Update Invoice Status Error:", error);
 
     return res.status(500).json({
       success: false,

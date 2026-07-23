@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 import api from "../services/api";
-import { loginSuccess } from "../features/auth/authSlice";
 
 const Login = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,11 +22,13 @@ const Login = () => {
         password,
       });
 
-      dispatch(
-        loginSuccess({
-          user: response.data.user,
-          token: response.data.token,
-        })
+      // Save token
+      localStorage.setItem("token", response.data.token);
+
+      // Save user (optional)
+      localStorage.setItem(
+        "user",
+        JSON.stringify(response.data.user)
       );
 
       navigate("/dashboard");
@@ -83,7 +82,7 @@ const Login = () => {
           Don't have an account?{" "}
           <Link
             to="/register"
-            className="text-blue-500"
+            className="text-blue-500 hover:underline"
           >
             Register
           </Link>

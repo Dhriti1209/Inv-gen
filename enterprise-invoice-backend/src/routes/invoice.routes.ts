@@ -6,6 +6,7 @@ import {
   getInvoices,
   getInvoiceById,
   updateInvoice,
+  updateInvoiceStatus,
   deleteInvoice,
 } from "../controllers/invoice.controller";
 
@@ -21,4 +22,5 @@ router.put("/:id", protect, updateInvoice);
 
 router.delete("/:id", protect, deleteInvoice);
 
+router.patch("/:id/status", protect, updateInvoiceStatus);
 export default router;

@@ -24,10 +24,7 @@ const Sidebar = () => {
       name: "Invoices",
       path: "/invoices",
     },
-    {
-      name: "Create Invoice",
-      path: "/invoices/create",
-    },
+    
   ];
 
   return (
