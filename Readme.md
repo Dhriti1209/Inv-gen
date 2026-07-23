@@ -301,9 +301,7 @@ B.Tech CSE (AI & ML)
 Manipal University Jaipur
 
 ---
-<img width="1069" height="918" alt="image" src="https://github.com/user-attachments/assets/4e65179f-8e44-4580-bf9d-9935c6eebb5e" />
-<img width="1245" height="886" alt="image" src="https://github.com/user-attachments/assets/341ddaa3-8a96-43fd-bd62-1f571daee13f" />
-<img width="1915" height="657" alt="image" src="https://github.com/user-attachments/assets/16e8f673-f302-4279-9de7-0992f15eb5fa" />
+
 
 
 
