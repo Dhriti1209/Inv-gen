@@ -9,12 +9,19 @@ A modern SaaS-based Invoice Management Platform built using the MERN Stack. The 
 > Add screenshots of the following pages after deployment.
 
 - 🔐 Login Page
+
 - 📊 Dashboard
+![alt text](<WhatsApp Image 2026-07-23 at 5.19.38 PM.jpeg>)
 - 👥 Customers
+![alt text](<WhatsApp Image 2026-07-23 at 5.20.04 PM.jpeg>)
 - 📦 Products
+![alt text](<WhatsApp Image 2026-07-23 at 5.20.20 PM.jpeg>)
 - 🧾 Invoices
+![alt text](<WhatsApp Image 2026-07-23 at 5.20.35 PM.jpeg>)
 - ➕ Create Invoice
+![alt text](<WhatsApp Image 2026-07-23 at 5.20.47 PM.jpeg>)
 - 📄 Generated PDF
+![alt text](image.png)
 
 ---
 
@@ -286,7 +293,3 @@ B.Tech CSE (AI & ML)
 Manipal University Jaipur
 
 ---
-
-# ⭐ Support
-
-If you found this project helpful, please consider giving it a ⭐ on GitHub!
