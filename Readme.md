@@ -10,11 +10,24 @@ A modern SaaS-based Invoice Management Platform built using the MERN Stack. The 
 
 - 🔐 Login Page
 - 📊 Dashboard
+<img width="1600" height="784" alt="WhatsApp Image 2026-07-23 at 5 19 38 PM" src="https://github.com/user-attachments/assets/0ae83745-14fe-4a0b-87dc-a9c80c702d12" />
+
+
 - 👥 Customers
+  <img width="1600" height="722" alt="WhatsApp Image 2026-07-23 at 5 20 04 PM" src="https://github.com/user-attachments/assets/657ff7b0-b43d-4e50-9da3-5170be9f2b54" />
+
 - 📦 Products
+  <img width="1600" height="724" alt="WhatsApp Image 2026-07-23 at 5 20 20 PM" src="https://github.com/user-attachments/assets/9c863677-ca3e-424b-ac38-422d6c8c2a05" />
+
 - 🧾 Invoices
+  <img width="1600" height="704" alt="WhatsApp Image 2026-07-23 at 5 20 35 PM" src="https://github.com/user-attachments/assets/354bfc61-357c-4180-9f0b-650b4a70a58a" />
+
 - ➕ Create Invoice
+  <img width="1600" height="734" alt="WhatsApp Image 2026-07-23 at 5 20 47 PM" src="https://github.com/user-attachments/assets/2b6492e0-9930-469b-a69c-b21cc8a30f4b" />
+
 - 📄 Generated PDF
+  <img width="935" height="358" alt="image" src="https://github.com/user-attachments/assets/f598a4cc-9a26-4e30-88f0-f08eb02305e0" />
+
 
 ---
 
