@@ -9,6 +9,8 @@ A modern SaaS-based Invoice Management Platform built using the MERN Stack. The 
 > Add screenshots of the following pages after deployment.
 
 - 🔐 Login Page
+- <img width="958" height="434" alt="image" src="https://github.com/user-attachments/assets/b0798f1e-4f4f-4dfe-8087-7c0b3347169e" />
+
 - 📊 Dashboard
 <img width="1600" height="784" alt="WhatsApp Image 2026-07-23 at 5 19 38 PM" src="https://github.com/user-attachments/assets/0ae83745-14fe-4a0b-87dc-a9c80c702d12" />
 
